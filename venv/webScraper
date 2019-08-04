@@ -1,0 +1,22 @@
+import requests
+import urllib3.request
+import urllib
+import time
+import wget
+
+from bs4 import BeautifulSoup
+
+# access to the website with the url
+url = 'https://dumps.wikimedia.org/other/pagecounts-raw/2008/2008-01/'
+response = requests.get(url)
+
+# beautiful soup parses the HTML
+html = BeautifulSoup(response.text, "html.parser")
+
+# gets all the links
+html.findAll('a')
+for a in html.findAll('a', href=True):
+    download_URL = url + str(a['href'])
+    download_path = '/Users/guillem/Downloads/' + str(a['href'])
+    urllib.urlretrieve(download_URL,download_path)
+    #wget.download(download_URL,download_path)
