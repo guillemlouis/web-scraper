@@ -1,8 +1,7 @@
 import requests
 import urllib3.request
 import urllib
-import time
-import wget
+import os
 
 from bs4 import BeautifulSoup
 
@@ -13,10 +12,14 @@ response = requests.get(url)
 # beautiful soup parses the HTML
 html = BeautifulSoup(response.text, "html.parser")
 
-# gets all the links
-html.findAll('a')
+# iterate through the links
 for a in html.findAll('a', href=True):
+    # builds the url to download from
     download_URL = url + str(a['href'])
-    download_path = '/Users/guillem/Downloads/' + str(a['href'])
-    urllib.urlretrieve(download_URL,download_path)
-    #wget.download(download_URL,download_path)
+
+    # builds the path on the system to which you want to download
+    # os.path.expanduser will make this work in every system (gets the path to the home directory)
+    destination_path = os.path.expanduser('~/Downloads') + str(a['href'])
+
+    # download the file, from the download url to destination download path
+    urllib.urlretrieve(download_URL,destination_path)
