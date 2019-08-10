@@ -15,3 +15,4 @@ Given a url, an email address, its password and the receiver email address, you 
 
 To add : 
 * automate the run to happen every 24h
+* add more doc about how to set-up gmail for it to send mail
